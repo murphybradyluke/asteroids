@@ -4,10 +4,14 @@ import sys
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from logger import log_state
 from logger import log_event
+from pathlib import Path
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from shot import Shot
+
+path = Path(__file__)
+ASSET_PATH = path.parent / "assets"
 
 def main():
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
@@ -18,6 +22,7 @@ def main():
     clock = pygame.time.Clock()
     dt = 0.0
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    Asteroid.images = [pygame.image.load(p).convert_alpha() for p in sorted(ASSET_PATH.glob("asteroid*.png"))]
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
