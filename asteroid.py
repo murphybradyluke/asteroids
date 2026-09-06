@@ -10,11 +10,19 @@ from logger import log_event
 class Asteroid(CircleShape):
     def __init__(self, x: float, y: float, radius: float) -> None:
         super().__init__(x, y, radius)
+        self.color = self.random_color()
+
+    @staticmethod
+    def random_color() -> pygame.Color:
+        # random hue at full saturation/brightness so it stands out on black
+        color = pygame.Color(0)
+        color.hsva = (random.uniform(0, 360), 100, 100, 100)
+        return color
 
     def draw(self, screen):
         center = self.position
         radius = self.radius
-        pygame.draw.circle(screen, "white", center, radius, LINE_WIDTH)
+        pygame.draw.circle(screen, self.color, center, radius, LINE_WIDTH)
 
     def update(self, dt):
         self.position = self.position + (self.velocity * dt)
