@@ -14,8 +14,8 @@ class Asteroid(CircleShape):
 
     def draw(self, screen):
         center = self.position
-        self.rotating = pygame.transform.rotate(self.image, self.angle)
-        screen.blit(self.rotating, self.rotating.get_rect(center=center))
+        rotated = pygame.transform.rotate(self.image, self.angle)
+        screen.blit(rotated, rotated.get_rect(center=center))
 
     def update(self, dt):
         self.position = self.position + (self.velocity * dt)
